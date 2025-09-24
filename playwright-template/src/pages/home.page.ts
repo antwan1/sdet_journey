@@ -2,7 +2,7 @@ import { expect, type Locator, type Page } from "@playwright/test";
 
 
 export class OverviewPage{
-
+readonly pageURL = `${process.env.BASE_URL}/parabank/index.htm`;
 readonly heading: Locator;
 readonly page: Page;
 readonly openNewAccountLink: Locator;
@@ -78,7 +78,9 @@ await this.requestLoanLink.click();
 async clickLogOutLink(){
 await this.logOutLink.click();
 }
-
+async goto(){
+    await this.page.goto(this.pageURL);
+}
 
 async verifyUserHeading(userName:string){
     this.userHeading = this.page.getByText(`Welcome ${userName}`, {exact: true});

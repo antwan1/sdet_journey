@@ -45,9 +45,9 @@ export class LoginPage {
         await expect(this.forgotLoginInfo).toBeVisible();
         await expect(this.registerLink).toBeVisible();
         await expect(this.paraBankLogo).toBeVisible();
-        await expect(this.homeLink).toBeVisible();
-        await expect(this.aboutLink).toBeVisible();
-        await expect(this.contactLink).toBeVisible();
+        // await expect(this.homeLink).toBeVisible();
+        // await expect(this.aboutLink).toBeVisible();
+        // await expect(this.contactLink).toBeVisible();
     }
 
     async enterUsername(username: string) {

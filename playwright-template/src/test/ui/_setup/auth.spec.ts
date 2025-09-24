@@ -1,9 +1,11 @@
 import { test as setup } from "@playwright/test";
 import path from "path";
 import { LoginPage } from "../../../pages/login.page";
-import { OverviewPage } from "../../../pages/overview.page";
+import {OverviewPage} from "../../../pages/home.page";
 
-const userAAuthfile = path.join(__dirname, "..", "..", "..", ".auth", "userA.json");
+setup.use({
+    ignoreHTTPSErrors: true,
+});
 
 // Use test.use for global context options
 
@@ -25,6 +27,6 @@ setup("should authenticate and persist storage state for user A", async ({page})
     await overviewPage.checkPageLoaded();
     await overviewPage.verifyUserHeading(fullname);
 
-    await page.context().storageState({path: userAAuthfile});
+   await page.context().storageState({ path: 'src/.auth/userA.json' });
 
 });

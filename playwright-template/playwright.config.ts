@@ -17,27 +17,36 @@ export default defineConfig({
     headless: true,
   },
   projects: [
-    // Auth setup project generates storage state at src/.auth/userA.json
     {
       name: 'setup',
-      testMatch: /.*\/_setup\/.*\.spec\.ts/,
+      testMatch: /.*[\\\/]_setup[\\\/].*\.spec\.ts/,
       retries: 2,
     },
-    // UI projects depend on setup and reuse storage state
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], storageState: 'src/.auth/userA.json' },
+      testMatch: /.*[\\\/]parallel[\\\/].*\.spec\.ts/,
       dependencies: ['setup'],
+      use: { ...devices['Desktop Chrome'], storageState: 'src/.auth/userA.json' },
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'], storageState: 'src/.auth/userA.json' },
+      testMatch: /.*[\\\/]parallel[\\\/].*\.spec\.ts/,
       dependencies: ['setup'],
+      use: { ...devices['Desktop Firefox'], storageState: 'src/.auth/userA.json' },
     },
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'], storageState: 'src/.auth/userA.json' },
+      testMatch: /.*[\\\/]parallel[\\\/].*\.spec\.ts/,
       dependencies: ['setup'],
+      use: { ...devices['Desktop Safari'], storageState: 'src/.auth/userA.json' },
+    },
+    {
+      name: 'sequential',
+      testMatch: /.*[\\\/]sequential[\\\/].*\.spec\.ts/,
+      dependencies: ['setup'],
+      retries: 2,
+      workers: 1,
+      use: { ...devices['Desktop Chrome'], storageState: 'src/.auth/userA.json' },
     },
   ],
 });
